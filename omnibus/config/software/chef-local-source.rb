@@ -80,6 +80,8 @@ build do
   ruby "post-bundle-install.rb", env: env
 
   # use the rake install task to build/install chef-config/chef-utils
+  puts "************** CURRENT DIRECTORY ***************"
+  puts `pwd`
   command "rake install:local", env: env
 
   gemspec_name = if windows?
