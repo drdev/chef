@@ -96,11 +96,9 @@ build do
   # ensure we put the gems in the right place to get picked up by the publish scripts
   delete "pkg"
   puts "********* checking permissions *************"
-  puts `ls -l /var/cache/omnibus/chef/src/chef/chef/chef-18.4.23.gem`
+  puts `ls -l /var/cache/omnibus/chef/src/chef/chef/chef*.gem`
   mkdir "pkg"
-  puts "******* pkg dir created ********"
   sudo copy "chef*.gem", "pkg"
-  puts `sudo ls -l pkg`
   # Always deploy the powershell modules in the correct place.
   if windows?
     mkdir "#{install_dir}/modules/chef"
