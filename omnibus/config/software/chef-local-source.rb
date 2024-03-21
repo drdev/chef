@@ -99,9 +99,9 @@ build do
   puts `ls -l /var/cache/omnibus/chef/src/chef/chef/chef-18.4.23.gem`
   mkdir "pkg"
   puts "******* pkg dir created ********"
-  puts `ls -l pkg`
+  puts `sudo ls -l pkg`
   sudo copy "chef*.gem", "pkg"
-
+  puts `sudo ls -l pkg`
   # Always deploy the powershell modules in the correct place.
   if windows?
     mkdir "#{install_dir}/modules/chef"
