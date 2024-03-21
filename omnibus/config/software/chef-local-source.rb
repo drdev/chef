@@ -82,8 +82,6 @@ build do
   # use the rake install task to build/install chef-config/chef-utils
   puts "************** CURRENT DIRECTORY ***************"
   puts `pwd`
-  command "rake install:local", env: env
-
   gemspec_name = if windows?
                    # Chef18 is built with ruby3.1 so platform name is changed.
                    RUBY_PLATFORM == "x64-mingw-ucrt" ? "chef-universal-mingw-ucrt.gemspec" : "chef-universal-mingw32.gemspec"
@@ -97,8 +95,12 @@ build do
 
   # ensure we put the gems in the right place to get picked up by the publish scripts
   delete "pkg"
+  puts "********* checking permissions *************"
+  puts `ls -l /var/cache/omnibus/chef/src/chef/chef/chef-18.4.23.gem`
   mkdir "pkg"
-  copy "chef*.gem", "pkg"
+  puts "******* pkg dir created ********"
+  puts `ls -l pkg`
+  sudo copy "chef*.gem", "pkg"
 
   # Always deploy the powershell modules in the correct place.
   if windows?
