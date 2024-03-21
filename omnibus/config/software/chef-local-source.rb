@@ -98,7 +98,8 @@ build do
   puts "********* checking permissions *************"
   puts `ls -l /var/cache/omnibus/chef/src/chef/chef/chef*.gem`
   mkdir "pkg"
-  sudo copy "chef*.gem", "pkg"
+  puts `whoami`
+  copy "chef*.gem", "pkg"
   # Always deploy the powershell modules in the correct place.
   if windows?
     mkdir "#{install_dir}/modules/chef"
