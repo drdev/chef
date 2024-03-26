@@ -76,12 +76,10 @@ build do
   bundle_excludes = excluded_groups + %w{development test}
 
   bundle "config set --local without docgen chefstyle development test", env: env
-  bundle "install --jobs=3 --retry=3"
+  bundle "install --jobs=1 "
   ruby "post-bundle-install.rb", env: env
 
   # use the rake install task to build/install chef-config/chef-utils
-  puts "************** CURRENT DIRECTORY ***************"
-  puts `pwd`
   gemspec_name = if windows?
                    # Chef18 is built with ruby3.1 so platform name is changed.
                    RUBY_PLATFORM == "x64-mingw-ucrt" ? "chef-universal-mingw-ucrt.gemspec" : "chef-universal-mingw32.gemspec"
@@ -105,7 +103,8 @@ build do
     mkdir "#{install_dir}/modules/chef"
     copy "distro/templates/powershell/chef/*", "#{install_dir}/modules/chef"
   end
-
+  puts "GEM ENV"
+  puts `gem env`
   block do
     # cspell:disable-next-line
     appbundle "chef", lockdir: project_dir, gem: "inspec-core-bin", without: excluded_groups, env: env
